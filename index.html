@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça a Garagem 36 - Espetinhos, monte sua seleção de espetinhos e envie sua lista para a espetaria pelo WhatsApp.">
+  <title>Garagem 36 - Espetinhos</title>
+  <style>
+    /*  PERSONALIZAÇÃO RÁPIDA 
+       Altere estas cores para combinar com a identidade da sua empresa. */
+    :root {
+      --fundo: #fffaf3;
+      --fundo-card: #ffffff;
+      --texto: #25211d;
+      --texto-suave: #686059;
+      --principal: #b93e22;
+      --principal-escura: #8e2d18;
+      --destaque: #f6bd60;
+      --borda: #eee3d6;
+      --escuro: #261e1b;
+      --largura: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--fundo);
+      color: var(--texto);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(90%, var(--largura)); margin-inline: auto; }
+    .tag {
+      display: inline-block;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--principal);
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { line-height: 1.12; }
+    h1 { font-size: clamp(2.65rem, 6vw, 5rem); letter-spacing: -.055em; }
+    h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); letter-spacing: -.045em; }
+    h3 { font-size: 1.28rem; }
+    p { color: var(--texto-suave); }
+    section { scroll-margin-top: 92px; }
+
+    /*  MENU */
+    .cabecalho {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 250, 243, .96);
+      border-bottom: 1px solid var(--borda);
+      backdrop-filter: blur(12px);
+    }
+    .cabecalho .container {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 1.22rem; font-weight: 900; letter-spacing: -.035em; }
+    .logo-icone { display: grid; place-items: center; width: 52px; height: 52px; flex-shrink: 0; overflow: hidden; border-radius: 13px; background: var(--principal); font-size: 1.3rem; }
+    .logo-icone img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .menu { display: flex; align-items: center; gap: clamp(14px, 3vw, 34px); }
+    .menu a { font-weight: 700; font-size: .94rem; transition: color .2s; }
+    .menu a:hover, .menu a:focus-visible { color: var(--principal); }
+    .botao {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 23px;
+      border-radius: 10px;
+      background: var(--principal);
+      color: white;
+      font-weight: 800;
+      transition: background .2s, transform .2s;
+    }
+    .botao:hover, .botao:focus-visible { background: var(--principal-escura); transform: translateY(-2px); }
+    .botao-secundario { background: transparent; color: var(--texto); border: 1px solid #d9c9b8; }
+    .botao-secundario:hover, .botao-secundario:focus-visible { background: #f4e9dc; color: var(--texto); }
+
+    /*  1. INÍCIO  */
+    .inicio { padding: clamp(70px, 9vw, 126px) 0; overflow: hidden; }
+    .inicio-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(30px, 6vw, 80px); align-items: center; }
+    .inicio h1 { margin: 15px 0 23px; }
+    .inicio h1 span { color: var(--principal); }
+    .inicio p { max-width: 530px; font-size: 1.1rem; }
+    .acoes { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .detalhes { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: 32px; font-size: .85rem; font-weight: 700; color: #5b5049; }
+    .detalhes span::before { content: '✦'; color: var(--principal); margin-right: 7px; }
+    .arte-brasa {
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      background: radial-gradient(circle at 50% 70%, #843d20 0%, #39271e 47%, #1d1918 100%);
+      box-shadow: 0 25px 70px rgba(56, 33, 20, .18);
+    }
+    .arte-brasa::before {
+      content: '';
+      position: absolute;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: #e88436;
+      filter: blur(90px);
+      opacity: .36;
+      bottom: -150px;
+    }
+    .arte-brasa::after {
+      content: 'FEITO NA BRASA';
+      position: absolute;
+      bottom: 26px;
+      left: 28px;
+      color: #ffe1b3;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: .24em;
+    }
+    .prato { position: relative; z-index: 1; font-size: clamp(7rem, 14vw, 11rem); line-height: 1; filter: drop-shadow(0 14px 16px rgba(0,0,0,.3)); transform: rotate(-13deg); }
+    .selo {
+      position: absolute;
+      top: 22px; right: 22px;
+      border: 1px solid rgba(255,255,255,.23);
+      border-radius: 999px;
+      padding: 9px 14px;
+      background: rgba(255,255,255,.09);
+      color: #ffe7c3;
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    /*  2. PRODUTOS  */
+    .produtos { padding: 90px 0 108px; background: #f7efe5; }
+    .secao-cabecalho { max-width: 660px; margin-bottom: 42px; }
+    .secao-cabecalho h2 { margin: 12px 0 15px; }
+    .grid-produtos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .produto-card { overflow: hidden; background: var(--fundo-card); border: 1px solid var(--borda); border-radius: 20px; transition: transform .2s, box-shadow .2s; }
+    .produto-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(60, 35, 22, .09); }
+    .produto-imagem { height: 230px; display: grid; place-items: center; font-size: 6.7rem; overflow: hidden; }
+    .produto-imagem img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .produto-imagem.carne { background: linear-gradient(135deg, #e4aa75, #ad6147); }
+    .produto-imagem.linguica { background: linear-gradient(135deg, #e9a683, #a8573d); }
+    .produto-imagem.frango { background: linear-gradient(135deg, #f6df9e, #c98e49); }
+    .produto-imagem.medalhao { background: linear-gradient(135deg, #dc9e7b, #9e523f); }
+    .produto-imagem.panceta { background: linear-gradient(135deg, #f3be9d, #bd7158); }
+    .produto-imagem.kafta { background: linear-gradient(135deg, #edbd83, #a5683f); }
+    .produto-imagem span { filter: drop-shadow(0 12px 8px rgba(80,40,15,.14)); }
+    .produto-info { padding: 25px 24px 27px; }
+    .produto-info h3 { margin-bottom: 10px; }
+    .produto-info p { margin-bottom: 0; font-size: .94rem; }
+    .aviso { margin-top: 25px; font-size: .83rem; }
+
+
+    /*  SELETOR DE QUANTIDADES E RESUMO DO WHATSAPP  */
+    .produto-card.selecionado { border-color: #d69e63; box-shadow: 0 8px 28px rgba(118, 56, 20, .11); }
+    .produto-info { display: flex; flex-direction: column; min-height: 192px; }
+    .produto-info p { flex-grow: 1; }
+    .produto-acoes { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--borda); }
+    .produto-acoes .legenda-quantidade { color: var(--texto-suave); font-size: .86rem; font-weight: 700; }
+    .seletor-quantidade { display: inline-flex; align-items: center; border-radius: 11px; border: 1px solid #dcc7b5; overflow: hidden; flex-shrink: 0; }
+    .controle-botao { background: #fbf5ef; color: var(--principal-escura); border: 0; cursor: pointer; width: 38px; height: 40px; font: 700 1.25rem Arial, sans-serif; transition: background .2s; }
+    .controle-botao:hover, .controle-botao:focus-visible { background: #f4dfce; }
+    .controle-botao:disabled { opacity: .38; cursor: not-allowed; }
+    .controle-botao:focus-visible, .botao:focus-visible { outline: 3px solid #f6bd60; outline-offset: 3px; }
+    .quantidade-valor { display: inline-grid; place-items: center; min-width: 35px; padding: 0 5px; font-weight: 800; font-size: 1.03rem; font-variant-numeric: tabular-nums; }
+    .resumo-pedido { margin-top: 38px; border: 1px solid #e9d9c7; background: #fff; border-radius: 22px; padding: clamp(22px, 4vw, 35px); display: grid; grid-template-columns: 1.2fr .8fr; gap: clamp(20px, 4vw, 45px); box-shadow: 0 10px 34px rgba(75, 42, 23, .06); }
+    .resumo-pedido h3 { font-size: 1.48rem; margin: 8px 0 14px; }
+    .resumo-pedido p { margin-bottom: 12px; }
+    .resumo-itens { list-style: none; margin: 0; padding: 0; }
+    .resumo-itens li { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; padding: 10px 0; border-bottom: 1px solid #f0e5d9; color: var(--texto); }
+    .resumo-itens .resumo-vazio { display: block; color: var(--texto-suave); border-bottom: none; font-style: italic; }
+    .resumo-itens .resumo-qtd { font-size: .92rem; font-weight: 800; color: var(--principal); white-space: nowrap; }
+    .resumo-total { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 16px; margin-top: 7px; font-weight: 800; }
+    .resumo-total strong { color: var(--principal-escura); font-size: 1.45rem; font-variant-numeric: tabular-nums; }
+    .resumo-enviar { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 20px; background: #fbf7f0; border-radius: 16px; }
+    .resumo-enviar p { font-size: .94rem; }
+    .resumo-enviar .botao { width: 100%; text-align: center; font-size: .94rem; border: none; cursor: pointer; font-family: inherit; }
+    .botao-whatsapp { background: #19794c; }
+    .botao-whatsapp:hover, .botao-whatsapp:focus-visible { background: #105b38; }
+    .resumo-enviar .botao:disabled { opacity: .46; cursor: not-allowed; transform: none; }
+    .resumo-enviar .botao-secundario { background: transparent; border: 1px solid #d9c9b8; color: var(--texto); }
+    .resumo-enviar .botao-secundario:hover:not(:disabled) { background: #f4e9dc; }
+    .resumo-enviar .nota-enviar { font-size: .79rem; line-height: 1.5; color: #6d635c; margin: 0; }
+    .resumo-enviar .aviso-numero { font-size: .8rem; margin: 0; color: #895017; background: #fff4df; border-left: 3px solid #e9b258; border-radius: 4px; padding: 10px 12px; }
+
+    /*  3. SOBRE  */
+    .sobre { padding: 105px 0; background: var(--escuro); color: #fff8ee; }
+    .sobre-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(36px, 7vw, 90px); align-items: center; }
+    .sobre .tag { color: #ffb879; }
+    .sobre h2 { margin: 12px 0 22px; }
+    .sobre p { color: #d6c7b8; font-size: 1.02rem; }
+    .sobre .destaque { color: #ffba7c; font-weight: 700; }
+    .sobre-arte {
+      min-height: 340px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: radial-gradient(circle at 50% 70%, rgba(245,144,66,.18), transparent 60%), #342720;
+      display: grid;
+      place-items: center;
+      font-size: 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .sobre-arte img { display: block; width: min(60%, 180px); height: 180px; margin-bottom: 28px; object-fit: contain; }
+    .sobre-arte::after { content: 'TRADIÇÃO  •  SABOR  •  ENCONTROS'; position: absolute; bottom: 25px; font-size: .75rem; font-weight: 800; letter-spacing: .1em; color: #edc6a3; }
+
+    /*  4. LOCALIZAÇÃO E GOOGLE MAPS  */
+    .localizacao { padding: 90px 0 105px; background: var(--fundo); }
+    .localizacao h2 { margin: 12px 0 18px; }
+    .localizacao .endereco { font-size: 1.05rem; margin-bottom: 23px; }
+    .mapa-container {
+      margin-top: 34px;
+      width: 100%;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid var(--borda);
+      background: #eee3d6;
+      box-shadow: 0 14px 35px rgba(56, 33, 20, .09);
+    }
+    .mapa-container iframe { display: block; width: 100%; height: 440px; border: 0; }
+    .rodape { background: #191412; padding: 25px 0; color: #bca99a; font-size: .84rem; }
+    .rodape .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+    @media (max-width: 780px) {
+      .cabecalho .container { min-height: 72px; }
+      .inicio-grid, .sobre-grid { grid-template-columns: 1fr; }
+      .arte-brasa { min-height: 310px; }
+      .grid-produtos { grid-template-columns: 1fr 1fr; }
+      .resumo-pedido { grid-template-columns: 1fr; }
+      .sobre-arte { min-height: 260px; }
+    }
+    @media (max-width: 530px) {
+      .cabecalho .container { flex-direction: column; padding: 15px 0; gap: 11px; }
+      .menu { gap: 12px 18px; flex-wrap: wrap; justify-content: center; }
+      .menu a { font-size: .88rem; }
+      section { scroll-margin-top: 130px; }
+      .inicio { padding: 54px 0 72px; }
+      .produtos, .sobre, .localizacao { padding: 70px 0; }
+      .mapa-container iframe { height: 340px; }
+      .grid-produtos { grid-template-columns: 1fr; }
+      .produto-imagem { height: 210px; }
+      .resumo-pedido { padding: 18px; }
+      .resumo-enviar { padding: 17px; }
+      .acoes a { flex: 1; text-align: center; padding-inline: 14px; }
+    }
+  </style>
+  <link rel="stylesheet" href="efeitos.css?v=20261105-cards-originais">
+</head>
+<body>
+  <!-- Identidade da empresa: Garagem 36 - Espetinhos. -->
+  <header class="cabecalho">
+    <div class="container">
+      <a href="#inicio" class="logo" aria-label="Garagem 36 - Espetinhos, voltar ao início">
+        <span class="logo-icone" aria-hidden="true">
+          <img src="imagens/logo_garagem36.png" alt="" width="52" height="52" decoding="async">
+        </span>
+        <span>Garagem 36 - Espetinhos</span>
+      </a>
+      <nav class="menu" aria-label="Menu principal">
+        <a href="#inicio">Início</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#sobre">Sobre nós</a>
+        <a href="#localizacao">Localização</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- INÍCIO -->
+    <section class="inicio" id="inicio" aria-labelledby="titulo-inicio">
+      <div class="container inicio-grid">
+        <div>
+          <span class="tag">Bem-vindo à nossa espetaria</span>
+          <h1 id="titulo-inicio">De nossa garagem <span>para a sua casa</span></h1>
+          <p>Espetinhos feitos com capricho, ingredientes selecionados e aquele gostinho de encontro entre amigos. Conheça um pouco do que preparamos por aqui.</p>
+          <div class="acoes">
+            <a href="#produtos" class="botao">Ver nossos produtos <span aria-hidden="true">→</span></a>
+            <a href="#sobre" class="botao botao-secundario">Conheça a empresa</a>
+          </div>
+          <div class="detalhes" aria-label="Destaques">
+            <span>Sabor de verdade</span>
+            <span>Feito com cuidado</span>
+          </div>
+        </div>
+        <div class="arte-brasa">
+          <span class="selo">Nossa especialidade</span>
+          <img src="imagens/churrasco.webp" width="1600" height="800"
+               alt="Churrasco assando na brasa" fetchpriority="high" decoding="async">
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="produtos" id="produtos" aria-labelledby="titulo-produtos">
+      <div class="container">
+        <div class="secao-cabecalho">
+          <span class="tag">Nosso cardápio</span>
+          <h2 id="titulo-produtos">Monte sua seleção de espetinhos</h2>
+          <p>Escolha quantos espetinhos quiser usando os botões + e −. Confira o resumo e envie sua lista para o WhatsApp da espetaria. Você combina os detalhes diretamente com nossa equipe.</p>
+        </div>
+        <div class="grid-produtos">
+          <article class="produto-card" data-produto="carne" data-nome="Espetinho de Carne">
+            <div class="produto-imagem carne"><img src="imagens/carne-sem-texto.webp" alt="Espetinho de carne na brasa" width="1000" height="785" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Espetinho de Carne</h3>
+              <p>Espetinho de carne preparado na brasa, com sabor de churrasco.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Espetinho de Carne">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Espetinho de Carne" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-carne">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Espetinho de Carne">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="produto-card" data-produto="linguica" data-nome="Linguiça">
+            <div class="produto-imagem linguica"><img src="imagens/linguica-sem-texto.webp" alt="Linguiça na brasa" width="1000" height="803" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Linguiça</h3>
+              <p>Linguiça assada na brasa, dourada e bem temperada.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Linguiça">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Linguiça" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-linguica">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Linguiça">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="produto-card" data-produto="frango" data-nome="Frango">
+            <div class="produto-imagem frango"><img src="imagens/frango-sem-texto.webp" alt="Frango na brasa" width="960" height="1000" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Frango</h3>
+              <p>Espetinho de frango preparado na brasa, suculento e saboroso.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Frango">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Frango" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-frango">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Frango">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="produto-card" data-produto="medalhao" data-nome="Medalhão">
+            <div class="produto-imagem medalhao"><img src="imagens/medalhao-sem-texto.webp" alt="Medalhão na brasa" width="1000" height="721" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Medalhão</h3>
+              <p>Medalhão assado na brasa, uma opção especial do cardápio.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Medalhão">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Medalhão" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-medalhao">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Medalhão">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="produto-card" data-produto="panceta" data-nome="Panceta">
+            <div class="produto-imagem panceta"><img src="imagens/panceta-sem-texto.webp" alt="Panceta na brasa" width="875" height="1000" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Panceta</h3>
+              <p>Panceta na brasa, com sabor marcante e textura crocante.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Panceta">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Panceta" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-panceta">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Panceta">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="produto-card" data-produto="kafta" data-nome="Kafta">
+            <div class="produto-imagem kafta"><img src="imagens/kafta.jpg" alt="Espetinhos de kafta" width="600" height="450" loading="lazy" decoding="async"></div>
+            <div class="produto-info">
+              <h3>Kafta</h3>
+              <p>Kafta temperada e assada na brasa.</p>
+              <div class="produto-acoes">
+                <span class="legenda-quantidade">Quantidade</span>
+                <div class="seletor-quantidade" role="group" aria-label="Quantidade de Kafta">
+                  <button type="button" class="controle-botao" data-acao="diminuir" aria-label="Diminuir Kafta" disabled>−</button>
+                  <output class="quantidade-valor" aria-label="Unidades selecionadas" id="quantidade-kafta">0</output>
+                  <button type="button" class="controle-botao" data-acao="aumentar" aria-label="Adicionar Kafta">+</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="resumo-pedido" id="resumo-pedido" aria-labelledby="titulo-resumo">
+          <div>
+            <span class="tag">Sua seleção</span>
+            <h3 id="titulo-resumo">Resumo dos espetinhos</h3>
+            <ul class="resumo-itens" id="lista-selecionados" aria-live="polite" aria-relevant="additions removals text">
+              <li class="resumo-vazio">Nenhum produto selecionado ainda.</li>
+            </ul>
+            <div class="resumo-total">
+              <span>Total de unidades</span>
+              <strong id="total-unidades">0</strong>
+            </div>
+          </div>
+          <div class="resumo-enviar">
+            <h3>Enviar pelo WhatsApp</h3>
+            <p>Confira sua lista e abra uma mensagem pronta para falar com a Garagem 36.</p>
+            <button type="button" class="botao botao-whatsapp" id="enviar-whatsapp" disabled>
+              Enviar lista pelo WhatsApp <span aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="botao botao-secundario" id="limpar-selecao" disabled>Limpar seleção</button>
+            <p class="nota-enviar">O envio não confirma o pedido nem realiza pagamento. Você poderá revisar e enviar a mensagem no WhatsApp.</p>
+          </div>
+        </div>
+        <p class="aviso">* Descrições ilustrativas. Personalize conforme os ingredientes e preparos reais da empresa.</p>
+      </div>
+    </section>
+
+    <!--  SOBRE A EMPRESA  -->
+    <section class="sobre" id="sobre" aria-labelledby="titulo-sobre">
+      <div class="container sobre-grid">
+        <div class="sobre-arte"><img src="imagens/logo_garagem36.png" alt="Logo da Garagem 36 - Espetinhos" width="180" height="180" loading="lazy" decoding="async"></div>
+        <div>
+          <h2 id="titulo-sobre">Nossa História — Garagem 36 Espetinhos</h2>
+          <p><strong>De nossa garagem para a sua casa! 🔥</strong></p>
+          <p>A história da <strong>Garagem 36 Espetinhos</strong> começou em 2015, com uma proposta simples: oferecer espetinhos saborosos, preparados com dedicação, qualidade e aquele gostinho especial de churrasco feito na brasa.</p>
+          <p>Ao longo de <strong>11 anos de história, de 2015 até hoje</strong>, construímos uma trajetória marcada pelo carinho com nossos clientes, pelo cuidado no preparo de cada espetinho e pela paixão por proporcionar bons momentos ao redor de uma boa comida.</p>
+          <p>Mais do que vender espetinhos, buscamos criar uma experiência de sabor e tradição. Cada produto representa nosso compromisso com a qualidade e com as pessoas que fizeram parte dessa caminhada.</p>
+          <p>O nome <strong>Garagem 36</strong> carrega nossa identidade e representa a simplicidade e a autenticidade que fazem parte da nossa história.</p>
+          <p>Hoje, celebramos com orgulho tudo o que construímos ao longo desses anos, levando conosco as lembranças, as amizades e a gratidão por cada cliente que passou por aqui.</p>
+          <p><strong>Garagem 36 Espetinhos — 2015 aos anos atuais. Uma história feita na brasa, com sabor, dedicação e carinho!</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO  -->
+    <section class="localizacao" id="localizacao" aria-labelledby="titulo-localizacao">
+      <div class="container">
+        <span class="tag">Venha nos encontrar</span>
+        <h2 id="titulo-localizacao">Onde estamos</h2>
+        <p class="endereco">📍 Rua Emílio Pacagnella, nº 36 — Parque das Árvores, Araras - SP</p>
+        <a class="botao" href="https://www.google.com/maps/search/?api=1&amp;query=Rua%20Em%C3%ADlio%20Pacagnella%2C%2036%2C%20Parque%20das%20%C3%81rvores%2C%20Araras%2C%20SP%2C%20Brasil" target="_blank" rel="noopener noreferrer" aria-label="Abrir localização da Garagem 36 - Espetinhos no Google Maps, em nova aba">Abrir no Google Maps <span aria-hidden="true">↗</span></a>
+        <div class="mapa-container">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d922.6275518471681!2d-47.38512643038843!3d-22.334356158230896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c876c4bc0904ad%3A0xe76ec97a00de81a8!2sR.%20Em%C3%ADlio%20Pacagnela%2C%2036%20-%20Parque%20das%20Arvores%2C%20Araras%20-%20SP%2C%2013604-173!5e0!3m2!1spt-BR!2sbr!4v1793396897486!5m2!1spt-BR!2sbr;output=embed"
+            title="Mapa da localização da Garagem 36 - Espetinhos, na Rua Emílio Pacagnella, 36, Parque das Árvores, Araras - SP"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container">
+      <span>© 2026 Garagem 36 - Espetinhos. Todos os direitos reservados.</span>
+      <span>Site institucional e vitrine de produtos.</span>
+      <button type="button" class="alternar-efeitos" id="alternar-efeitos" aria-pressed="false" hidden>Ativar efeitos</button>
+    </div>
+  </footer>
+
+  <script>
+    "use strict";
+
+    /* WhatsApp da Garagem 36: +55 (19) 99349-8032. */
+    const WHATSAPP_DA_ESPETARIA = "5519993498032";
+
+    const cards = Array.from(document.querySelectorAll(".produto-card[data-produto]"));
+    const lista = document.getElementById("lista-selecionados");
+    const totalUnidades = document.getElementById("total-unidades");
+    const botaoEnviar = document.getElementById("enviar-whatsapp");
+    const botaoLimpar = document.getElementById("limpar-selecao");
+    const quantidades = new Map(cards.map(card => [card.dataset.produto, 0]));
+    const numeroWhatsApp = WHATSAPP_DA_ESPETARIA.replace(/\D/g, "");
+
+    function itensSelecionados() {
+      return cards.map(card => ({
+        id: card.dataset.produto,
+        nome: card.dataset.nome,
+        quantidade: quantidades.get(card.dataset.produto) || 0
+      })).filter(item => item.quantidade > 0);
+    }
+
+    function atualizarTela() {
+      const itens = itensSelecionados();
+      const total = itens.reduce((soma, item) => soma + item.quantidade, 0);
+
+      cards.forEach(card => {
+        const quantidade = quantidades.get(card.dataset.produto);
+        card.querySelector(".quantidade-valor").textContent = String(quantidade);
+        card.querySelector('[data-acao="diminuir"]').disabled = quantidade === 0;
+        card.classList.toggle("selecionado", quantidade > 0);
+      });
+
+      lista.replaceChildren();
+      if (itens.length === 0) {
+        const vazio = document.createElement("li");
+        vazio.className = "resumo-vazio";
+        vazio.textContent = "Nenhum produto selecionado ainda.";
+        lista.appendChild(vazio);
+      } else {
+        itens.forEach(item => {
+          const linha = document.createElement("li");
+          const nome = document.createElement("span");
+          const quantidade = document.createElement("span");
+          quantidade.className = "resumo-qtd";
+          nome.textContent = item.nome;
+          quantidade.textContent = `${item.quantidade}x`;
+          linha.append(nome, quantidade);
+          lista.appendChild(linha);
+        });
+      }
+      totalUnidades.textContent = String(total);
+      botaoEnviar.disabled = total === 0;
+      botaoLimpar.disabled = total === 0;
+    }
+
+    // Os botões + e − funcionam em todos os seis produtos.
+    document.querySelector(".grid-produtos").addEventListener("click", event => {
+      const botao = event.target.closest("button[data-acao]");
+      if (!botao) return;
+      const card = botao.closest(".produto-card[data-produto]");
+      const id = card.dataset.produto;
+      const atual = quantidades.get(id) || 0;
+      const proximo = botao.dataset.acao === "aumentar" ? atual + 1 : Math.max(0, atual - 1);
+      // Apenas quantidades inteiras, sem valores negativos.
+      quantidades.set(id, proximo);
+      atualizarTela();
+    });
+
+    botaoLimpar.addEventListener("click", () => {
+      quantidades.forEach((_, id) => quantidades.set(id, 0));
+      atualizarTela();
+    });
+
+    function montarMensagem() {
+      const itens = itensSelecionados();
+      const total = itens.reduce((soma, item) => soma + item.quantidade, 0);
+      return [
+        "Olá, Garagem 36 - Espetinhos! 🔥",
+        "",
+        "Gostaria de solicitar os seguintes itens para retirada:",
+        "",
+        ...itens.map(item => `• ${item.quantidade}x ${item.nome}`),
+        "",
+        `Total: ${total} ${total === 1 ? "unidade" : "unidades"}.`,
+        "",
+        "Podem confirmar a disponibilidade, por favor?"
+      ].join("\n");
+    }
+
+    botaoEnviar.addEventListener("click", () => {
+      if (itensSelecionados().length === 0) return;
+      const urlBase = numeroWhatsApp
+        ? `https://wa.me/${numeroWhatsApp}?text=`
+        : "https://wa.me/?text=";
+      // O visitante revisa e confirma o envio dentro do WhatsApp.
+      window.open(urlBase + encodeURIComponent(montarMensagem()), "_blank", "noopener,noreferrer");
+    });
+
+    atualizarTela();
+  </script>
+
+  <script src="efeitos.js?v=20261105-cards-originais"></script>
+</body>
+</html>
